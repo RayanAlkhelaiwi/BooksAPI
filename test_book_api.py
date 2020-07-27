@@ -115,7 +115,7 @@ class BookAPITestCase(unittest.TestCase):
         """ Test for deleting a book """
 
         #! Increment book_id before execution
-        book_id = 63
+        book_id = 65
 
         res = self.client().delete('/books/' + str(book_id))
         data = json.loads(res.data)
