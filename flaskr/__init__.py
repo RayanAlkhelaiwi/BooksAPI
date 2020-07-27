@@ -19,7 +19,7 @@ def create_app(test_config=None):
         return response
 
     # To specify the number of books per shelf to display in each page
-    books_per_shelf = 2
+    books_per_shelf = 5
 
     def paginate_books(request, selection):
         page = request.args.get('page', 1, type=int)
@@ -139,13 +139,10 @@ def create_app(test_config=None):
                 book = Book(author=new_author, title=new_title, rating=int(new_rating))
                 book.insert()
 
-                selection = Book.query.order_by(Book.id).all()
-                current_books = paginate_books(request, selection)
-
                 return jsonify({
                     'success': True,
                     'created_book_id': book.id,
-                    'books': current_books,
+                    'books': book.format(),
                     'total_books': len(Book.query.all())
                 })
 
